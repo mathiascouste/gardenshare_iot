@@ -88,7 +88,7 @@ void setup() {
   pinMode(LIGHT_PIN, INPUT);
   
   pinMode(INT_PIN, INPUT/*_PULLUP*/);
-  attachInterrupt(INT0, interupt_handler, FALLING);
+  //attachInterrupt(INT0, interupt_handler, FALLING);
   
 #if defined DEBUG
   Serial.begin( 9600 );
