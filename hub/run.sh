@@ -3,6 +3,6 @@
 while true;
 	do
 		python discover.py
-		sleep 160
+		sleep 15
 	done
 done

@@ -6,32 +6,19 @@ moduleserial = ""
 temperature = ""
 light = ""
 humidity = ""
-lat= 0.0
-lon= 0.0
-
-headers = {"Accept": "text/plain"}
-conn = httplib.HTTPConnection("127.0.0.1:1880")
-conn.request("GET", "/geoloc")
-response = conn.getresponse()
-print response.status, response.reason
-data = response.read()
-print data
-conn.close()
-
-decodedData = json.loads(data)
-
-lat = str(decodedData['LocationRS']['location'][0]['latitude'][0])
-lon = str(decodedData['LocationRS']['location'][0]['longitude'][0])
+lat= str(43.683237)
+lon= str(7.202499)
 
 def sendToServer(postPath, postdata):
     headers = {"Content-type": "application/json","Accept": "text/plain"}
     conn = httplib.HTTPConnection("gardenhubconnector-2.eu-gb.mybluemix.net")
     conn.request("POST", postPath, postdata, headers)
-    print postdata
+    print "url		" + postPath
+    print "body		" + postdata
     response = conn.getresponse()
     print response.status, response.reason
     data = response.read()
-    print data
+    #print data
     conn.close()
 
 def logData( key, value ):
@@ -51,6 +38,7 @@ def logData( key, value ):
 
 def sendsend(postPath,datatype):
     data = "{\"type\":\""+datatype+"\",\"serial\":\""+moduleserial+"\",\"temperature\":\""+temperature+"\",\"light\":\""+light+"\", \"humidity\":\""+humidity+"\", \"latitude\":\""+lat+"\", \"longitude\":\""+lon+"\"}"
+    data = "{}"
     sendToServer(postPath,data)
 
 def register( ):
@@ -58,7 +46,6 @@ def register( ):
     sendsend("register","register")
 
 def senddata( ):
-    print 'senddata'
     sendsend("senddata","senddata")
 
 target_suffix = "HC"
